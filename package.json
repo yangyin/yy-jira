@@ -54,5 +54,10 @@
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
     "*.{js,css,md,ts,tsx}": "prettier --write"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
   }
 }
