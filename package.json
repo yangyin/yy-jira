@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.4.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -10,6 +11,8 @@
     "@types/node": "^16.11.59",
     "@types/react": "^18.0.20",
     "@types/react-dom": "^18.0.6",
+    "antd": "^4.23.2",
+    "jira-dev-tool": "^1.7.61",
     "qs": "^6.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -18,9 +21,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "start1": "react-scripts start",
+    "build1": "react-scripts build",
+    "test1": "react-scripts test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "json-server": "json-server __json_server_mock__/db.json --watch --port 3001 --middlewares ./__json_server_mock__/middleware.js"
@@ -47,6 +53,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "craco-less": "^2.0.0",
     "eslint-config-prettier": "^8.5.0",
     "husky": "^4.2.3",
     "json-server": "^0.17.0",
@@ -63,5 +70,8 @@
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }
