@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
+export const isVoid = (value: unknown) =>
+  value === undefined || value === null || value === "";
 
-export const cleanObject = (object: object) => {
+export const cleanObject = (object: { [key: string]: unknown }) => {
   const result = { ...object };
   Object.keys(result).forEach((key) => {
-    // @ts-ignore
     const value = result[key];
-    if (isFalsy(value)) {
-        // @ts-ignore
+    if (isVoid(value)) {
       delete result[key];
     }
   });
@@ -18,6 +18,7 @@ export const cleanObject = (object: object) => {
 export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 
@@ -33,16 +34,16 @@ export const useDebounce = <T>(value: T, delay?: number) => {
 };
 
 export const useArray = <T>(arr: Array<T>) => {
-    const [value, setState] = useState(arr)
+  const [value, setState] = useState(arr);
 
-    return {
-        value, 
-        add: (param: T) => setState([...value, param]), 
-        clear: () => setState([]),
-        removeIndex: (n: number) => {
-            const copy = [...value];
-                copy.splice(n, 1);
-                setState(copy);
-        }
-    }
-}
+  return {
+    value,
+    add: (param: T) => setState([...value, param]),
+    clear: () => setState([]),
+    removeIndex: (n: number) => {
+      const copy = [...value];
+      copy.splice(n, 1);
+      setState(copy);
+    },
+  };
+};

@@ -1,26 +1,45 @@
 import styled from "@emotion/styled";
-import { Row } from 'components/lib';
+import { Dropdown, Menu, Button } from "antd";
+import { Row } from "components/lib";
 import { useAuth } from "context/auth-context";
 import { ProjectListScreen } from "screens/project-list";
+import { ReactComponent as SoftwareLogo } from "./assets/software-logo.svg";
 
 export const AuthenticatedApp = () => {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <Container>
-        <Header>
-            <HeaderLeft gap={true}>
-                <h3>logo</h3>
-                <h3>项目</h3>
-                <h3>用户</h3>
-            </HeaderLeft>
-            <HeaderRight>
-                <button onClick={logout}>登出</button>
-            </HeaderRight>
-        </Header>
-        <Main>
-            <ProjectListScreen />
-        </Main>
-        {/* <Header>header</Header>
+      <Header between={true}>
+        <HeaderLeft gap={true}>
+          <HeaderItem>
+            <SoftwareLogo width={"18rem"} color={"rgb(38,132,255)"} />
+          </HeaderItem>
+          <HeaderItem>项目</HeaderItem>
+          <HeaderItem>用户</HeaderItem>
+        </HeaderLeft>
+        <HeaderRight>
+          {/* <button onClick={logout}>登出</button> */}
+          <Dropdown
+            overlay={
+              <Menu>
+                <Menu.Item key={1}>
+                  <Button type={"link"} onClick={logout}>
+                    登出
+                  </Button>
+                </Menu.Item>
+              </Menu>
+            }
+          >
+            <Button type="link" onClick={(e) => e.preventDefault()}>
+              Hi,{user?.name}
+            </Button>
+          </Dropdown>
+        </HeaderRight>
+      </Header>
+      <Main>
+        <ProjectListScreen />
+      </Main>
+      {/* <Header>header</Header>
         <Nav />
         <Main />
         <Footer />
@@ -36,11 +55,11 @@ export const AuthenticatedApp = () => {
 };
 
 const Container = styled.div`
-    display: grid;
-    height: 100vh;
-    grid-template-rows: 6rem 1fr;
-    /* grid-template-rows: 6rem calc(100vh - 6rem); */
-    /* grid-template-rows: 6rem 1fr 6rem;
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 6rem 1fr;
+  /* grid-template-rows: 6rem calc(100vh - 6rem); */
+  /* grid-template-rows: 6rem 1fr 6rem;
     grid-template-columns: 20rem 1fr 20rem;
     grid-template-areas: 
     "nav header header"
@@ -48,7 +67,7 @@ const Container = styled.div`
     "nav footer footer"
     ;
     grid-gap: 5px 0; */
-`
+`;
 
 // const Header = styled.header`grid-area: header; background-color: gray`
 // const Main = styled.header`grid-area: main; background-color: gainsboro;`
@@ -57,12 +76,16 @@ const Container = styled.div`
 // const Footer = styled.header`grid-area: footer; background-color: black`
 
 const Header = styled(Row)`
-  justify-content: space-between;
+  padding: 3.2rem;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
 `;
 
 const HeaderLeft = styled(Row)``;
-// const HeaderItem = styled.div``
-const HeaderRight = styled.div``
+const HeaderItem = styled.h3`
+  margin-right: 3rem;
+`;
+const HeaderRight = styled.div``;
 
 const Main = styled.main`
   height: calc(100vh - 6rem);
