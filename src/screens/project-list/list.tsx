@@ -1,23 +1,22 @@
-import { User } from "./search-panel";
-import { Table } from "antd";
-import { spawn } from "child_process";
-import dayjs from "dayjs";
+import { User } from "./search-panel"
+import { Table, TableProps } from "antd"
+import { spawn } from "child_process"
+import dayjs from "dayjs"
 
-interface Project {
-  id: string;
-  name: string;
-  personId: string;
-  pin: boolean;
-  organization: string;
-  created: number;
+export interface Project {
+  id: string
+  name: string
+  personId: string
+  pin: boolean
+  organization: string
+  created: number
 }
 
-interface ListProps {
-  list: Project[];
-  users: User[];
+interface ListProps extends TableProps<Project> {
+  users: User[]
 }
 
-export const List = ({ list, users }: ListProps) => {
+export const List = ({ users, ...props }: ListProps) => {
   return (
     <Table
       pagination={false}
@@ -40,7 +39,7 @@ export const List = ({ list, users }: ListProps) => {
                 {users.find((user) => user.id === project.personId)?.name ||
                   "未知"}
               </span>
-            );
+            )
           },
         },
         {
@@ -52,13 +51,13 @@ export const List = ({ list, users }: ListProps) => {
                   ? dayjs(project.created).format("YYYY-MM-DD")
                   : "无"}
               </span>
-            );
+            )
           },
         },
       ]}
-      dataSource={list}
+      {...props}
     />
-  );
+  )
   //   return (
   //     <table>
   //       <thead>
@@ -80,4 +79,4 @@ export const List = ({ list, users }: ListProps) => {
   //       </tbody>
   //     </table>
   //   );
-};
+}
