@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Card, Button, Divider, Typography } from "antd"
 import { LoginScreen } from "./login"
 import { RegisterScreen } from "./register"
+import { Helmet } from "react-helmet"
 import styled from "@emotion/styled"
 import logo from "assets/logo.svg"
 import left from "assets/left.svg"
@@ -13,6 +14,9 @@ export const UnauthenticatedApp = () => {
 
   return (
     <Container>
+      <Helmet>
+        <title>请登录以继续</title>
+      </Helmet>
       <Header />
       <Background />
       <ShadowCard>

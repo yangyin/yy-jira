@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
 // import qs from "qs";
-import { cleanObject, useDebounce, useMount } from "../../utils"
+import {
+  cleanObject,
+  useDebounce,
+  useDocumentTitle,
+  useMount,
+} from "../../utils"
 import { List, Project } from "./list"
 import { SearchPanel } from "./search-panel"
 import { useHttp } from "utils/http"
@@ -25,6 +30,8 @@ export const ProjectListScreen = () => {
   const debouncedParam = useDebounce(param, 2000)
   const { isLoading, error, data: list } = useProjects(debouncedParam)
   const { data: users } = useUsers()
+
+  useDocumentTitle("项目列表", false)
   // const { run, isLoading, error, data: list } = useAsync<Project[]>()
 
   // useEffect(() => {
