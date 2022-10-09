@@ -13,23 +13,27 @@ import styled from "@emotion/styled"
 import { Typography } from "antd"
 // import { useAsync } from 'utils/use-async';
 import { useProjects, useUsers } from "utils/project"
+import { useUrlQueryParam } from "utils/url"
 
 // const apiUrl = process.env.REACT_APP_API_URL;
 
 export const ProjectListScreen = () => {
-  const [param, setParam] = useState({
-    name: "",
-    personId: "",
-  })
+  // const [param, setParam] = useState({
+  //   name: "",
+  //   personId: "",
+  // })
   // const [list, setList] = useState([]);
   // const [users, setUsers] = useState([]);
   // const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState<null | Error>(null)
 
   // const client = useHttp();
+  const [param, setParam] = useUrlQueryParam(["name", "personId"])
   const debouncedParam = useDebounce(param, 2000)
   const { isLoading, error, data: list } = useProjects(debouncedParam)
   const { data: users } = useUsers()
+
+  // setParam({personId: 1})
 
   useDocumentTitle("项目列表", false)
   // const { run, isLoading, error, data: list } = useAsync<Project[]>()
@@ -76,6 +80,8 @@ export const ProjectListScreen = () => {
     </Container>
   )
 }
+
+ProjectListScreen.whyDidYouRender = true
 
 const Container = styled.div`
   padding: 3.2rem;
